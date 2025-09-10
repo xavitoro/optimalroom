@@ -10,5 +10,7 @@ public record ReservationSearchCriteria (
     UUID userId,
     Instant startFrom,
     Instant endTo,
-    ReservationStatus status
+    ReservationStatus status,
+    int page,
+    int size
 ) {}
