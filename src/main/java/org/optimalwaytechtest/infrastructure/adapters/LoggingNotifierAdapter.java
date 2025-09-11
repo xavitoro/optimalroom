@@ -4,12 +4,12 @@ import org.optimalwaytechtest.room.domain.entities.Reservation;
 import org.optimalwaytechtest.room.domain.ports.NotifierPort;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 /**
  * Simple {@link NotifierPort} implementation that logs reservation events.
  */
-@Component
+@Repository
 class LoggingNotifierAdapter implements NotifierPort {
 
     private static final Logger logger = LoggerFactory.getLogger(LoggingNotifierAdapter.class);

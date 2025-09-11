@@ -1,5 +1,10 @@
 package org.optimalwaytechtest.infrastructure.adapters.in.rest;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.optimalwaytechtest.application.contracts.*;
 import org.optimalwaytechtest.application.usecases.*;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -19,6 +24,7 @@ import java.util.UUID;
  */
 @RestController
 @RequestMapping("/reservations")
+@Tag(name = "Reservations", description = "Manage room reservations")
 public class ReservationController {
 
     private final CreateReservationUseCase createReservation;
@@ -38,6 +44,11 @@ public class ReservationController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
+    @Operation(summary = "Create a reservation", description = "Creates a reservation for a room and user")
+    @ApiResponses({
+            @ApiResponse(responseCode = "201", description = "Reservation created"),
+            @ApiResponse(responseCode = "400", description = "Invalid reservation data")
+    })
     public ReservationResponse create(@Valid @RequestBody CreateReservationRequest request) {
         CreateReservationCommand cmd = new CreateReservationCommand(
                 request.roomId(),
@@ -50,11 +61,18 @@ public class ReservationController {
     }
 
     @GetMapping
-    public ReservationPageResponse list(@RequestParam(required = false) UUID roomId,
-                                        @RequestParam(required = false) UUID userId,
-                                        @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date,
-                                        @RequestParam(defaultValue = "0") int page,
-                                        @RequestParam(defaultValue = "20") int size) {
+    @Operation(summary = "List reservations", description = "Returns reservations filtered by parameters")
+    public ReservationPageResponse list(
+            @Parameter(description = "Filter by room identifier")
+            @RequestParam(required = false) UUID roomId,
+            @Parameter(description = "Filter by user identifier")
+            @RequestParam(required = false) UUID userId,
+            @Parameter(description = "Filter by reservation date")
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date,
+            @Parameter(description = "Page number", example = "0")
+            @RequestParam(defaultValue = "0") int page,
+            @Parameter(description = "Page size", example = "20")
+            @RequestParam(defaultValue = "20") int size) {
         Instant start = null;
         Instant end = null;
         if (date != null) {
@@ -77,6 +95,11 @@ public class ReservationController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
+    @Operation(summary = "Cancel a reservation", description = "Cancels the reservation with the given identifier")
+    @ApiResponses({
+            @ApiResponse(responseCode = "204", description = "Reservation cancelled"),
+            @ApiResponse(responseCode = "404", description = "Reservation not found")
+    })
     public void delete(@PathVariable UUID id) {
         CancelReservationCommand cmd = new CancelReservationCommand(id);
         cancelReservation.handle(cmd);
