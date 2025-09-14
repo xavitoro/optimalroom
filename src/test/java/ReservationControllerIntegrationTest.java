@@ -2,23 +2,23 @@ import java.time.Instant;
 import java.util.UUID;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.optimalwaytechtest.RoomApplication;
 import org.optimalwaytechtest.infrastructure.adapters.in.rest.CreateReservationRequest;
 import org.optimalwaytechtest.infrastructure.persistence.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.MediaType;
+import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.web.reactive.server.WebTestClient;
+import static org.assertj.core.api.Assertions.assertThat;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@AutoConfigureWebTestClient
+@SpringBootTest(classes = RoomApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
 class ReservationControllerIntegrationTest {
 
     @Autowired
-    private WebTestClient webTestClient;
+    private TestRestTemplate rest;
     @Autowired
     private UserJpaRepository userRepository;
     @Autowired
@@ -51,37 +51,26 @@ class ReservationControllerIntegrationTest {
                 Instant.parse("2024-01-01T10:00:00Z"),
                 Instant.parse("2024-01-01T11:00:00Z"));
 
-        webTestClient.post().uri("/reservations")
-                .headers(h -> h.setBasicAuth(email, rawPassword))
-                .contentType(MediaType.APPLICATION_JSON)
-                .bodyValue(first)
-                .exchange()
-                .expectStatus().isCreated();
+        var created = rest.withBasicAuth(email, rawPassword)
+                .postForEntity("/reservations", first, Void.class);
+        assertThat(created.getStatusCode()).isEqualTo(HttpStatus.CREATED);
 
-        CreateReservationRequest overlapping = new CreateReservationRequest(
-                roomId,
-                userId,
+        var overlapping = new CreateReservationRequest(
+                roomId, userId,
                 Instant.parse("2024-01-01T10:30:00Z"),
                 Instant.parse("2024-01-01T11:30:00Z"));
 
-        webTestClient.post().uri("/reservations")
-                .headers(h -> h.setBasicAuth(email, rawPassword))
-                .contentType(MediaType.APPLICATION_JSON)
-                .bodyValue(overlapping)
-                .exchange()
-                .expectStatus().isEqualTo(409);
+        var conflict1 = rest.withBasicAuth(email, rawPassword)
+                .postForEntity("/reservations", overlapping, Void.class);
+        assertThat(conflict1.getStatusCode()).isEqualTo(HttpStatus.CONFLICT);
 
-        CreateReservationRequest twoHourRule = new CreateReservationRequest(
-                roomId,
-                userId,
+        var twoHourRule = new CreateReservationRequest(
+                roomId, userId,
                 Instant.parse("2024-01-01T11:15:00Z"),
                 Instant.parse("2024-01-01T12:15:00Z"));
 
-        webTestClient.post().uri("/reservations")
-                .headers(h -> h.setBasicAuth(email, rawPassword))
-                .contentType(MediaType.APPLICATION_JSON)
-                .bodyValue(twoHourRule)
-                .exchange()
-                .expectStatus().isEqualTo(409);
+        var conflict2 = rest.withBasicAuth(email, rawPassword)
+                .postForEntity("/reservations", twoHourRule, Void.class);
+        assertThat(conflict2.getStatusCode()).isEqualTo(HttpStatus.CONFLICT);
     }
 }

@@ -1,6 +1,6 @@
-package org.optimalwaytechtest.room.domain.ports;
+package org.optimalwaytechtest.domain.ports;
 
-import org.optimalwaytechtest.room.domain.entities.Reservation;
+import org.optimalwaytechtest.domain.entities.Reservation;
 
 public interface NotifierPort {
     void notifyReservationCreated(Reservation reservation);

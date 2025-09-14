@@ -1,4 +1,4 @@
-package org.optimalwaytechtest.room.domain.enums;
+package org.optimalwaytechtest.domain.enums;
 
 public enum ReservationStatus {
     ACTIVE,

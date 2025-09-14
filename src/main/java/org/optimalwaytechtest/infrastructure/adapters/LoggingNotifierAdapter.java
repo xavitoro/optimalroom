@@ -1,7 +1,7 @@
 package org.optimalwaytechtest.infrastructure.adapters;
 
-import org.optimalwaytechtest.room.domain.entities.Reservation;
-import org.optimalwaytechtest.room.domain.ports.NotifierPort;
+import org.optimalwaytechtest.domain.entities.Reservation;
+import org.optimalwaytechtest.domain.ports.NotifierPort;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;

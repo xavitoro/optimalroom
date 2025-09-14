@@ -1,9 +1,9 @@
-package org.optimalwaytechtest.room.domain.ports;
+package org.optimalwaytechtest.domain.ports;
 
-import org.optimalwaytechtest.room.domain.entities.Reservation;
-import org.optimalwaytechtest.room.domain.valueobjects.ReservationSearchCriteria;
-import org.optimalwaytechtest.room.domain.valueobjects.SearchResult;
-import org.optimalwaytechtest.room.domain.valueobjects.TimeSlot;
+import org.optimalwaytechtest.domain.entities.Reservation;
+import org.optimalwaytechtest.domain.valueobjects.ReservationSearchCriteria;
+import org.optimalwaytechtest.domain.valueobjects.SearchResult;
+import org.optimalwaytechtest.domain.valueobjects.TimeSlot;
 
 
 import java.time.Instant;

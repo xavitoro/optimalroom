@@ -1,4 +1,4 @@
-package org.optimalwaytechtest.room.domain.entities;
+package org.optimalwaytechtest.domain.entities;
 
 import java.time.Instant;
 import java.util.Objects;

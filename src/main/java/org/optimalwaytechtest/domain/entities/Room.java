@@ -1,4 +1,4 @@
-package org.optimalwaytechtest.room.domain.entities;
+package org.optimalwaytechtest.domain.entities;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;

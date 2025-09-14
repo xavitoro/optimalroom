@@ -1,7 +1,7 @@
 import static org.assertj.core.api.Assertions.assertThat;
 
-import org.optimalwaytechtest.room.domain.services.ReservationPolicy;
-import org.optimalwaytechtest.room.domain.valueobjects.TimeSlot;
+import org.optimalwaytechtest.domain.services.ReservationPolicy;
+import org.optimalwaytechtest.domain.valueobjects.TimeSlot;
 
 import java.time.Instant;
 import java.util.List;

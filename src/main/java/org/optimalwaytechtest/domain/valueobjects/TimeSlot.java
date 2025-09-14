@@ -1,5 +1,5 @@
-package org.optimalwaytechtest.room.domain.valueobjects;
-import org.optimalwaytechtest.room.domain.exceptions.ValidationException;
+package org.optimalwaytechtest.domain.valueobjects;
+import org.optimalwaytechtest.domain.exceptions.ValidationException;
 
 import java.time.Duration;
 import java.time.Instant;

@@ -2,10 +2,11 @@ package org.optimalwaytechtest.application.usecases;
 
 import org.optimalwaytechtest.application.contracts.*;
 import org.optimalwaytechtest.application.mappers.ReservationDtoMapper;
-import org.optimalwaytechtest.room.domain.entities.Reservation;
-import org.optimalwaytechtest.room.domain.enums.ReservationStatus;
-import org.optimalwaytechtest.room.domain.exceptions.NotFoundException;
-import org.optimalwaytechtest.room.domain.ports.*;
+import org.optimalwaytechtest.domain.entities.Reservation;
+import org.optimalwaytechtest.domain.enums.ReservationStatus;
+import org.optimalwaytechtest.domain.exceptions.NotFoundException;
+import org.optimalwaytechtest.domain.ports.NotifierPort;
+import org.optimalwaytechtest.domain.ports.ReservationRepositoryPort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

@@ -47,7 +47,8 @@ public class ReservationController {
     @Operation(summary = "Create a reservation", description = "Creates a reservation for a room and user")
     @ApiResponses({
             @ApiResponse(responseCode = "201", description = "Reservation created"),
-            @ApiResponse(responseCode = "400", description = "Invalid reservation data")
+            @ApiResponse(responseCode = "400", description = "Invalid reservation data"),
+            @ApiResponse(responseCode = "409", description = "Invalid reservation time")
     })
     public ReservationResponse create(@Valid @RequestBody CreateReservationRequest request) {
         CreateReservationCommand cmd = new CreateReservationCommand(

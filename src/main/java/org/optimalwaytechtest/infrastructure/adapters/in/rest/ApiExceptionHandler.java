@@ -1,6 +1,8 @@
 package org.optimalwaytechtest.infrastructure.adapters.in.rest;
 
-import org.optimalwaytechtest.room.domain.exceptions.*;
+import org.optimalwaytechtest.domain.exceptions.ConflictException;
+import org.optimalwaytechtest.domain.exceptions.NotFoundException;
+import org.optimalwaytechtest.domain.exceptions.ValidationException;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

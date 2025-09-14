@@ -1,4 +1,4 @@
-package org.optimalwaytechtest.room.domain.exceptions;
+package org.optimalwaytechtest.domain.exceptions;
 
 public class NotFoundException extends DomainException {
     public NotFoundException(String message) {

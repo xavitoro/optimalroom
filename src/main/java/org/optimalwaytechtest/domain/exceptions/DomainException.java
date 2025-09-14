@@ -1,4 +1,4 @@
-package org.optimalwaytechtest.room.domain.exceptions;
+package org.optimalwaytechtest.domain.exceptions;
 
 /**
  * Base type for domain related exceptions.

@@ -3,8 +3,8 @@ package org.optimalwaytechtest.infrastructure.persistence;
 import java.util.Optional;
 import java.util.UUID;
 
-import org.optimalwaytechtest.room.domain.entities.Room;
-import org.optimalwaytechtest.room.domain.ports.RoomRepositoryPort;
+import org.optimalwaytechtest.domain.entities.Room;
+import org.optimalwaytechtest.domain.ports.RoomRepositoryPort;
 import org.springframework.stereotype.Component;
 
 /**

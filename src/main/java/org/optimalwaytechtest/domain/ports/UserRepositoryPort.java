@@ -1,6 +1,6 @@
-package org.optimalwaytechtest.room.domain.ports;
+package org.optimalwaytechtest.domain.ports;
 
-import org.optimalwaytechtest.room.domain.entities.User;
+import org.optimalwaytechtest.domain.entities.User;
 
 import java.util.Optional;
 import java.util.UUID;

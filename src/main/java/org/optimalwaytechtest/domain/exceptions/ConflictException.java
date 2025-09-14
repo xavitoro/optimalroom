@@ -1,4 +1,4 @@
-package org.optimalwaytechtest.room.domain.exceptions;
+package org.optimalwaytechtest.domain.exceptions;
 
 public class ConflictException extends DomainException {
     public ConflictException(String message) {

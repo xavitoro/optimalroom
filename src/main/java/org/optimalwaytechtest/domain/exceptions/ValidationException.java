@@ -1,4 +1,4 @@
-package org.optimalwaytechtest.room.domain.exceptions;
+package org.optimalwaytechtest.domain.exceptions;
 
 public class ValidationException extends DomainException {
     public ValidationException(String message) {

@@ -1,4 +1,4 @@
-package org.optimalwaytechtest.room.domain.valueobjects;
+package org.optimalwaytechtest.domain.valueobjects;
 
 import java.util.List;
 

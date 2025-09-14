@@ -2,9 +2,10 @@ package org.optimalwaytechtest.application.usecases;
 
 import org.optimalwaytechtest.application.contracts.*;
 import org.optimalwaytechtest.application.mappers.ReservationDtoMapper;
-import org.optimalwaytechtest.room.domain.entities.Reservation;
-import org.optimalwaytechtest.room.domain.ports.ReservationRepositoryPort;
-import org.optimalwaytechtest.room.domain.valueobjects.*;
+import org.optimalwaytechtest.domain.entities.Reservation;
+import org.optimalwaytechtest.domain.ports.ReservationRepositoryPort;
+import org.optimalwaytechtest.domain.valueobjects.ReservationSearchCriteria;
+import org.optimalwaytechtest.domain.valueobjects.SearchResult;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

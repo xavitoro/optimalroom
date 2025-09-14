@@ -2,11 +2,16 @@ package org.optimalwaytechtest.application.usecases;
 
 import org.optimalwaytechtest.application.contracts.*;
 import org.optimalwaytechtest.application.mappers.ReservationDtoMapper;
-import org.optimalwaytechtest.room.domain.entities.Reservation;
-import org.optimalwaytechtest.room.domain.exceptions.*;
-import org.optimalwaytechtest.room.domain.ports.*;
-import org.optimalwaytechtest.room.domain.services.ReservationPolicy;
-import org.optimalwaytechtest.room.domain.valueobjects.TimeSlot;
+import org.optimalwaytechtest.domain.entities.Reservation;
+import org.optimalwaytechtest.domain.exceptions.ConflictException;
+import org.optimalwaytechtest.domain.exceptions.NotFoundException;
+import org.optimalwaytechtest.domain.exceptions.ValidationException;
+import org.optimalwaytechtest.domain.ports.NotifierPort;
+import org.optimalwaytechtest.domain.ports.ReservationRepositoryPort;
+import org.optimalwaytechtest.domain.ports.RoomRepositoryPort;
+import org.optimalwaytechtest.domain.ports.UserRepositoryPort;
+import org.optimalwaytechtest.domain.services.ReservationPolicy;
+import org.optimalwaytechtest.domain.valueobjects.TimeSlot;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -52,7 +57,7 @@ public class CreateReservationUseCase {
         var windowEnd = slot.getEnd().plus(Duration.ofHours(2));
         List<TimeSlot> existing = reservationRepository.findUserSlotsAround(cmd.userId(), windowStart, windowEnd);
         if (ReservationPolicy.violatesTwoHourRule(existing, slot)) {
-            throw new ValidationException("Reservation violates two hour rule");
+            throw new ConflictException("Reservation violates two hour rule");
         }
 
         Reservation saved = reservationRepository.save(reservation);

@@ -1,8 +1,8 @@
 package org.optimalwaytechtest.infrastructure.persistence;
 
-import org.optimalwaytechtest.room.domain.entities.Reservation;
-import org.optimalwaytechtest.room.domain.enums.ReservationStatus;
-import org.optimalwaytechtest.room.domain.valueobjects.TimeSlot;
+import org.optimalwaytechtest.domain.entities.Reservation;
+import org.optimalwaytechtest.domain.enums.ReservationStatus;
+import org.optimalwaytechtest.domain.valueobjects.TimeSlot;
 import org.springframework.stereotype.Component;
 
 /**

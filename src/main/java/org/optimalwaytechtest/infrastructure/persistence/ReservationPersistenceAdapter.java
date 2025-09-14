@@ -5,12 +5,12 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import org.optimalwaytechtest.room.domain.entities.Reservation;
-import org.optimalwaytechtest.room.domain.enums.ReservationStatus;
-import org.optimalwaytechtest.room.domain.ports.ReservationRepositoryPort;
-import org.optimalwaytechtest.room.domain.valueobjects.ReservationSearchCriteria;
-import org.optimalwaytechtest.room.domain.valueobjects.SearchResult;
-import org.optimalwaytechtest.room.domain.valueobjects.TimeSlot;
+import org.optimalwaytechtest.domain.entities.Reservation;
+import org.optimalwaytechtest.domain.enums.ReservationStatus;
+import org.optimalwaytechtest.domain.ports.ReservationRepositoryPort;
+import org.optimalwaytechtest.domain.valueobjects.ReservationSearchCriteria;
+import org.optimalwaytechtest.domain.valueobjects.SearchResult;
+import org.optimalwaytechtest.domain.valueobjects.TimeSlot;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;

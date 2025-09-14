@@ -3,25 +3,35 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.time.Instant;
 import java.util.UUID;
 import org.junit.jupiter.api.Test;
-import org.optimalwaytechtest.infrastructure.persistence.ReservationEntity;
-import org.optimalwaytechtest.infrastructure.persistence.ReservationJpaRepository;
-import org.optimalwaytechtest.room.domain.enums.ReservationStatus;
+import org.optimalwaytechtest.RoomApplication;
+import org.optimalwaytechtest.infrastructure.persistence.*;
+import org.optimalwaytechtest.domain.enums.ReservationStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.ContextConfiguration;
 
 @DataJpaTest
 @ActiveProfiles("test")
+@ContextConfiguration(classes = RoomApplication.class)
 class ReservationJpaRepositoryTest {
 
     @Autowired
     private ReservationJpaRepository repository;
+    @Autowired
+    private RoomJpaRepository roomRepository;
+    @Autowired
+    private UserJpaRepository userRepository;
 
     @Test
     void existsOverlapDetectsActiveReservationOverlap() {
+        UUID userId = UUID.randomUUID();
+        userRepository.save(new UserEntity(userId, "mil@example.com", "P@55w0rd", Instant.now()));
         UUID roomId = UUID.randomUUID();
+        roomRepository.save(new RoomEntity(roomId, "MIC", 4, Instant.now()));
+
         ReservationEntity existing = new ReservationEntity(
-                UUID.randomUUID(), roomId, UUID.randomUUID(),
+                UUID.randomUUID(), roomId, userId,
                 Instant.parse("2024-01-01T10:00:00Z"),
                 Instant.parse("2024-01-01T11:00:00Z"),
                 ReservationStatus.ACTIVE, Instant.now());
@@ -36,9 +46,13 @@ class ReservationJpaRepositoryTest {
 
     @Test
     void existsOverlapIgnoresCancelledReservations() {
+        UUID userId = UUID.randomUUID();
+        userRepository.save(new UserEntity(userId, "mail@example.com", "P@55w0rd", Instant.now()));
         UUID roomId = UUID.randomUUID();
+        roomRepository.save(new RoomEntity(roomId, "MAC", 10, Instant.now()));
+
         ReservationEntity existing = new ReservationEntity(
-                UUID.randomUUID(), roomId, UUID.randomUUID(),
+                UUID.randomUUID(), roomId, userId,
                 Instant.parse("2024-01-01T10:00:00Z"),
                 Instant.parse("2024-01-01T11:00:00Z"),
                 ReservationStatus.CANCELLED, Instant.now());
@@ -54,7 +68,9 @@ class ReservationJpaRepositoryTest {
     @Test
     void findUserSlotsAroundReturnsSlotsWithinWindow() {
         UUID userId = UUID.randomUUID();
+        userRepository.save(new UserEntity(userId, "meil@example.com", "P@55w0rd", Instant.now()));
         UUID roomId = UUID.randomUUID();
+        roomRepository.save(new RoomEntity(roomId, "MEC", 300, Instant.now()));
 
         repository.save(new ReservationEntity(UUID.randomUUID(), roomId, userId,
                 Instant.parse("2024-01-01T08:00:00Z"),

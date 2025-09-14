@@ -1,6 +1,6 @@
-package org.optimalwaytechtest.room.domain.services;
+package org.optimalwaytechtest.domain.services;
 
-import org.optimalwaytechtest.room.domain.valueobjects.TimeSlot;
+import org.optimalwaytechtest.domain.valueobjects.TimeSlot;
 
 import java.time.Duration;
 import java.time.Instant;

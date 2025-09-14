@@ -1,6 +1,6 @@
 package org.optimalwaytechtest.infrastructure.persistence;
 
-import org.optimalwaytechtest.room.domain.entities.User;
+import org.optimalwaytechtest.domain.entities.User;
 import org.springframework.stereotype.Component;
 
 /**
