@@ -1,5 +1,6 @@
 package org.optimalwaytechtest.infrastructure.persistence;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -31,5 +32,13 @@ class RoomPersistenceAdapter implements RoomRepositoryPort {
     @Override
     public Optional<Room> findById(UUID id) {
         return repository.findById(id).map(mapper::toDomain);
+    }
+
+    @Override
+    public List<Room> findAll() {
+        return repository.findAll()
+                .stream()
+                .map(mapper::toDomain)
+                .toList();
     }
 }

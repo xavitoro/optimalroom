@@ -1,5 +1,6 @@
 package org.optimalwaytechtest.infrastructure.persistence;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -36,5 +37,13 @@ class UserPersistenceAdapter implements UserRepositoryPort {
     @Override
     public Optional<User> findById(UUID id) {
         return repository.findById(id).map(mapper::toDomain);
+    }
+
+    @Override
+    public List<User> findAll() {
+        return repository.findAll()
+                .stream()
+                .map(mapper::toDomain)
+                .toList();
     }
 }

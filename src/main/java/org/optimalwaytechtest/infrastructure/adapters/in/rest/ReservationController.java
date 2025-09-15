@@ -29,15 +29,18 @@ public class ReservationController {
 
     private final CreateReservationUseCase createReservation;
     private final ListReservationsUseCase listReservations;
+    private final ListAllReservationsUseCase listAllReservations;
     private final CancelReservationUseCase cancelReservation;
     private final ReservationWebMapper mapper;
 
     public ReservationController(CreateReservationUseCase createReservation,
                                  ListReservationsUseCase listReservations,
+                                 ListAllReservationsUseCase listAllReservations,
                                  CancelReservationUseCase cancelReservation,
                                  ReservationWebMapper mapper) {
         this.createReservation = createReservation;
         this.listReservations = listReservations;
+        this.listAllReservations = listAllReservations;
         this.cancelReservation = cancelReservation;
         this.mapper = mapper;
     }
@@ -92,6 +95,14 @@ public class ReservationController {
         ReservationPageDto dto = listReservations.handle(query);
         List<ReservationResponse> items = dto.items().stream().map(mapper::toResponse).toList();
         return new ReservationPageResponse(items, dto.total(), page, size);
+    }
+
+    @GetMapping("/all")
+    @Operation(summary = "List all reservations", description = "Returns every reservation without pagination")
+    public List<ReservationResponse> listAll() {
+        return listAllReservations.handle().stream()
+                .map(mapper::toResponse)
+                .toList();
     }
 
     @DeleteMapping("/{id}")

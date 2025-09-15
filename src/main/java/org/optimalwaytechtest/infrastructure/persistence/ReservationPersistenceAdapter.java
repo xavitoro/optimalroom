@@ -45,6 +45,14 @@ class ReservationPersistenceAdapter implements ReservationRepositoryPort {
     }
 
     @Override
+    public List<Reservation> findAll() {
+        return repository.findAll(Sort.by("startAt").ascending())
+                .stream()
+                .map(mapper::toDomain)
+                .toList();
+    }
+
+    @Override
     public boolean existsOverlap(UUID roomId, Instant start, Instant end) {
         return repository.existsOverlap(roomId, start, end);
     }

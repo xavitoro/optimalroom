@@ -14,6 +14,7 @@ import java.util.UUID;
 public interface ReservationRepositoryPort {
     Reservation save(Reservation reservation);
     Optional<Reservation> findById(UUID id);
+    List<Reservation> findAll();
     boolean existsOverlap(UUID roomId, Instant start, Instant end);
     List<TimeSlot> findUserSlotsAround(UUID userId, Instant windowStart, Instant windowEnd);
     SearchResult<Reservation> search(ReservationSearchCriteria criteria);
